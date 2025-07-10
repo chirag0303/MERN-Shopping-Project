@@ -5,6 +5,11 @@ const createProductController = async (req, res) => {
         const data = req.body;
         console.log("creating product...", data);
 
+        Object.keys(data).forEach((key) => {
+            if (data[key] == null || data[key] == "") {
+                delete data.key;
+            }
+        });
         
         let newProduct = await Product.create(data);
         res.status(201).json({
@@ -63,7 +68,7 @@ const updateProductController = async (req,res) => {
             });
         }
 
-        res.status(200).
+        res.status(200);
         res.json({
             isSuccess: true,
             message: "Product Updated",
@@ -71,9 +76,10 @@ const updateProductController = async (req,res) => {
                 product: newProduct,
             },
         });
+        console.log(newData);
 
     } catch(err) {
-         console.log("---  error in update products ----");
+        console.log("---  error in update products ----");
         console.log(err.message);
 
         res.status(500);
@@ -85,7 +91,7 @@ const updateProductController = async (req,res) => {
     }
 }
 
-const deleteProductCOntroller = async (req,res) => {
+const deleteProductController = async (req,res) => {
     try {
         const {productId} = req.params;
         const deletedId = await Product.findByIdAndDelete(productId);
@@ -123,4 +129,4 @@ const deleteProductCOntroller = async (req,res) => {
     }
 
 }
-module.exports = { createProductController, getAllProducts, updateProductController, deleteProductCOntroller};
+module.exports = { createProductController, getAllProducts, updateProductController, deleteProductController};
