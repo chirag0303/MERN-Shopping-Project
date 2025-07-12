@@ -3,7 +3,7 @@ import { useMyContext } from "../context/AppContext";
 
 const Navbar = () => {
 
-    const { user, count } = useMyContext();
+    const { count } = useMyContext();
     return (
         <div className="py-4 px-6 flex justify-between bg-amber-400">
             <div className="font-bold text-white p-2 text-3xl ">Shopping App</div>
